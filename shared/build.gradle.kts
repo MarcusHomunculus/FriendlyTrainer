@@ -5,7 +5,8 @@ plugins {
 
 kotlin {
     android()
-    
+
+    /*
     listOf(
         iosX64(),
         iosArm64(),
@@ -15,6 +16,7 @@ kotlin {
             baseName = "shared"
         }
     }
+    */
 
     sourceSets {
         val commonMain by getting
@@ -25,6 +27,7 @@ kotlin {
         }
         val androidMain by getting
         val androidTest by getting
+        /*
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -43,6 +46,7 @@ kotlin {
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
+        */
     }
 }
 
