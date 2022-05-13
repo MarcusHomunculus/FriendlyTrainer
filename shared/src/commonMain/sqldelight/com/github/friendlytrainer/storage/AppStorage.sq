@@ -1,0 +1,18 @@
+CREATE TABLE History (
+date TEXT NOT NULL,
+exercise TEXT NOT NULL,
+count INTEGER NOT NULL
+);
+
+addExercise:
+INSERT INTO History(date, exercise, count)
+VALUES(?, ?, ?);
+
+clearHistory:
+DELETE FROM History;
+
+fullHistory:
+SELECT * FROM History;
+
+lastMonthHistory:
+SELECT * FROM History WHERE date > date('now', '-30 days');

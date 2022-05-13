@@ -72,3 +72,9 @@ android {
         targetSdk = 32
     }
 }
+
+sqldelight {
+    database("AppStorage") {
+        packageName = "com.github.friendlytrainer.storage"
+    }
+}
