@@ -12,5 +12,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
-    //internal fun
+    internal fun allExercises(): List<> {
+        dbQuery
+    }
 }
