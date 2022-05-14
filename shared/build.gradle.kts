@@ -25,6 +25,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
             }
         }
         val commonTest by getting {
