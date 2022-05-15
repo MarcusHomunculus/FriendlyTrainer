@@ -5,11 +5,11 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     -->
-    <color name="color_text">#383E56</color>
+    <color name="color_text">#000000</color>
     <!-- https://colorhunt.co/palette/de89717b6079a7d0cdffe9d6 -->
-    <color name="color_background">#F9F3EE</color>
-    <color name="color_primary_one">#D4B5B0</color>
-    <color name="color_primary_sec">#EEDAD1</color>
-    <color name="color_primary_third">F69E7B</color>
+    <color name="color_background">#E5E3C9</color>
+    <color name="color_primary_one">#B4CFB0</color>
+    <color name="color_primary_sec">#94B49F</color>
+    <color name="color_primary_third">#789395</color>
 
 </resources>
