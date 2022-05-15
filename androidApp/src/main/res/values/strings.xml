@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="amend_container_title">Add result</string>
+    <string name="amend_container_content">How many did you achieve today?</string>
+    <string name="progress_container_title">Progress</string>
+</resources>
