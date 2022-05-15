@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    -->
+    <color name="color_text">#383E56</color>
+    <!-- https://colorhunt.co/palette/de89717b6079a7d0cdffe9d6 -->
+    <color name="color_background">#F9F3EE</color>
+    <color name="color_primary_one">#D4B5B0</color>
+    <color name="color_primary_sec">#EEDAD1</color>
+    <color name="color_primary_third">F69E7B</color>
+
 </resources>
