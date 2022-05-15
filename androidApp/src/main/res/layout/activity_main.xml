@@ -9,8 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_top"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_marginHorizontal="40dp"
         app:cardCornerRadius="4dp"
@@ -29,24 +28,65 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
+                android:layout_marginVertical="15dp"
+                android:textSize="20sp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                tools:text="Hello World!" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Add result"/>
 
             <ImageView
                 android:id="@+id/top_arrow"
-                android:src="@drawable/expand_arrow"
+                android:src="@drawable/collapse_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:layout_gravity="center_vertical"
+                android:layout_marginTop="15dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/top_separator"
+                android:background="#CECECE"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="50dp"
+                app:layout_constraintTop_toBottomOf="@id/text_view" />
 
+            <TextView
+                android:id="@+id/top_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="40dp"
+                app:layout_constraintTop_toBottomOf="@id/top_separator"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                tools:text="How many did you achieve today?" />
+
+            <EditText
+                android:id="@+id/top_enter"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/top_question"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/top_hideable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="top_separator, top_question, top_enter"
+                android:visibility="visible"
+                />
+                <!--tools:visibility="gone"-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
