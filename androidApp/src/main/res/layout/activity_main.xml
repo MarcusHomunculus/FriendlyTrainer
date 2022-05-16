@@ -87,7 +87,7 @@
                 android:id="@+id/top_hideable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:constraint_referenced_ids="amend_separator, amend_content, amend_enter" />
             <!--tools:visibility="gone"-->
 
@@ -109,6 +109,7 @@
         android:focusable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:ap="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -146,13 +147,19 @@
                 android:layout_marginHorizontal="@dimen/main_container_separator_sides"
                 app:layout_constraintTop_toBottomOf="@id/progress_click_text" />
 
-            <com.jjoe64.graphview.GraphView
+            <com.androidplot.xy.XYPlot
+                android:id="@+id/progress_graph"
+                style="@style/APDefacto.Light"
+                ap:domainTitle="time"
+                ap:rangeTitle="count"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginVertical="10dp"
                 app:layout_constraintTop_toBottomOf="@id/progress_separator"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
