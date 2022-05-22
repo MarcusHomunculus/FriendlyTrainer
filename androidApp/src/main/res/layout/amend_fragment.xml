@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/blue_95">
+        android:backgroundTint="@color/blue_transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,7 +36,8 @@
                 android:gravity="start|center_vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:stateListAnimator="@null"/>
 
             <!--
             <TextView
@@ -100,7 +101,7 @@
                 app:layout_constraintTop_toBottomOf="@id/amend_content" />
 
             <androidx.constraintlayout.widget.Group
-                android:id="@+id/top_hideable"
+                android:id="@+id/amend_hideable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"

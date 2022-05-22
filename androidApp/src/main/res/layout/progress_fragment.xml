@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/green_95">
+        android:backgroundTint="@color/green_transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:ap="http://schemas.android.com/apk/res-auto"
@@ -37,7 +37,8 @@
                 android:gravity="start|center_vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:stateListAnimator="@null"/>
 
             <View
                 android:id="@+id/progress_separator"
@@ -62,6 +63,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/progress_hideable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="progress_separator, progress_graph" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
