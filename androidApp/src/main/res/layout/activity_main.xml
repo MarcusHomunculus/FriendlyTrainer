@@ -3,165 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_view"
-    android:background="@color/color_background"
+    android:background="@color/cream"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/container_amend"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_amend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginHorizontal="@dimen/main_container_outside_margin"
-        app:cardCornerRadius="@dimen/main_container_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:name="com.github.friendlytrainer.android.fragments.AmendFragment"
         app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/color_primary_one"
-        android:clickable="true"
-        android:focusable="true">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/amend_click_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/main_container_title_margin_vertical"
-                android:layout_marginStart="@dimen/main_container_title_margin_start"
-                android:text="@string/amend_container_title"
-                android:textColor="@color/color_text"
-                android:textSize="@dimen/main_container_title_size"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:id="@+id/amend_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/main_container_title_arrow_top"
-                android:layout_marginEnd="@dimen/main_container_title_arrow_end"
-                android:src="@drawable/collapse_arrow"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/amend_separator"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/main_container_separator_sides"
-                android:layout_marginVertical="@dimen/main_container_separator_vertical"
-                android:background="@color/color_background"
-                app:layout_constraintTop_toBottomOf="@id/amend_click_text" />
-
-            <TextView
-                android:id="@+id/amend_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/amend_content_vertical"
-                android:layout_marginStart="@dimen/amend_content_start"
-                android:text="@string/amend_container_content"
-                android:textColor="@color/color_text"
-                app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/amend_separator" />
-
-            <EditText
-                android:id="@+id/amend_enter"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/amend_insert_start"
-                android:layout_marginTop="@dimen/amend_insert_top"
-                android:layout_marginBottom="@dimen/amend_insert_bottom"
-                android:textColor="@color/color_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/amend_content" />
-
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/top_hideable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:constraint_referenced_ids="amend_separator, amend_content, amend_enter" />
-            <!--tools:visibility="gone"-->
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/container_progress"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/main_container_spacing_top"
-        android:layout_marginHorizontal="@dimen/main_container_outside_margin"
-        app:cardCornerRadius="@dimen/main_container_radius"
-        app:layout_constraintTop_toBottomOf="@id/container_amend"
+        android:name="com.github.friendlytrainer.android.fragments.ProgressFragment"
+        app:layout_constraintTop_toBottomOf="@id/fragment_amend"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        android:backgroundTint="@color/color_primary_sec"
-        android:clickable="true"
-        android:focusable="true">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:ap="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/progress_click_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/main_container_title_margin_start"
-                android:layout_marginVertical="@dimen/main_container_title_margin_vertical"
-                android:textSize="@dimen/main_container_title_size"
-                android:textStyle="bold"
-                android:textColor="@color/color_text"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                android:text="@string/progress_container_title" />
-
-            <ImageView
-                android:id="@+id/progress_arrow"
-                android:src="@drawable/expand_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/main_container_title_arrow_end"
-                android:layout_marginTop="@dimen/main_container_title_arrow_top"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <View
-                android:id="@+id/progress_separator"
-                android:background="@color/color_background"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/main_container_separator_vertical"
-                android:layout_marginHorizontal="@dimen/main_container_separator_sides"
-                app:layout_constraintTop_toBottomOf="@id/progress_click_text" />
-
-            <com.androidplot.xy.XYPlot
-                android:id="@+id/progress_graph"
-                style="@style/APDefacto.Light"
-                ap:domainTitle="time"
-                ap:rangeTitle="count"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="10dp"
-                app:layout_constraintTop_toBottomOf="@id/progress_separator"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
