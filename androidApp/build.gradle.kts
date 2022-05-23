@@ -17,6 +17,10 @@ android {
             isMinifyEnabled = false
         }
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -26,4 +30,5 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.4.1")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.androidplot:androidplot-core:1.5.9")
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 }

@@ -1,114 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="viewmodel" type="com.github.friendlytrainer.android.viewmodels.MainViewModel" />
+    </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/container_amend"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginHorizontal="@dimen/main_container_outside_margin"
-        app:cardCornerRadius="@dimen/main_container_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/blue_transparent">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/container_amend"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginHorizontal="@dimen/main_container_outside_margin"
+            app:cardCornerRadius="@dimen/main_container_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:backgroundTint="@color/blue_transparent">
 
-            <Button
-                android:id="@+id/amend_header"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/blue"
-                android:text="@string/amend_container_title"
-                android:textColor="@color/text"
-                android:textSize="@dimen/main_container_title_size"
-                android:textStyle="bold"
-                android:drawableEnd="@drawable/collapse_arrow"
-                android:paddingEnd="@dimen/main_container_title_arrow_end"
-                android:paddingStart="@dimen/main_container_title_margin_start"
-                android:paddingVertical="@dimen/main_container_title_margin_vertical"
-                android:gravity="start|center_vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:stateListAnimator="@null"/>
+                android:layout_height="match_parent">
 
-            <!--
-            <TextView
-                android:id="@+id/amend_click_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/main_container_title_margin_vertical"
-                android:layout_marginStart="@dimen/main_container_title_margin_start"
-                android:text="@string/amend_container_title"
-                android:textColor="@color/text"
-                android:textSize="@dimen/main_container_title_size"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                <Button
+                    android:id="@+id/amend_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue"
+                    android:text="@string/amend_container_title"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/main_container_title_size"
+                    android:textStyle="bold"
+                    android:drawableEnd="@{viewmodel.amendIconResource()}"
+                    android:paddingEnd="@dimen/main_container_title_arrow_end"
+                    android:paddingStart="@dimen/main_container_title_margin_start"
+                    android:paddingVertical="@dimen/main_container_title_margin_vertical"
+                    android:gravity="start|center_vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:stateListAnimator="@null"/>
 
-            <ImageView
-                android:id="@+id/amend_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/main_container_title_arrow_top"
-                android:layout_marginEnd="@dimen/main_container_title_arrow_end"
-                android:src="@drawable/collapse_arrow"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-                -->
+                <!--
+                <TextView
+                    android:id="@+id/amend_click_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/main_container_title_margin_vertical"
+                    android:layout_marginStart="@dimen/main_container_title_margin_start"
+                    android:text="@string/amend_container_title"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/main_container_title_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
-            <View
-                android:id="@+id/amend_separator"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginHorizontal="@dimen/main_container_separator_sides"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="@dimen/main_container_separator_vertical"
-                android:background="@color/cream"
-                app:layout_constraintTop_toBottomOf="@id/amend_header" />
+                <ImageView
+                    android:id="@+id/amend_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/main_container_title_arrow_top"
+                    android:layout_marginEnd="@dimen/main_container_title_arrow_end"
+                    android:src="@drawable/collapse_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                    -->
 
-            <TextView
-                android:id="@+id/amend_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/amend_content_vertical"
-                android:layout_marginStart="@dimen/amend_content_start"
-                android:text="@string/amend_container_content"
-                android:textColor="@color/text"
-                app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/amend_separator" />
+                <View
+                    android:id="@+id/amend_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginHorizontal="@dimen/main_container_separator_sides"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="@dimen/main_container_separator_vertical"
+                    android:background="@color/cream"
+                    app:layout_constraintTop_toBottomOf="@id/amend_header" />
 
-            <EditText
-                android:id="@+id/amend_enter"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/amend_insert_start"
-                android:layout_marginTop="@dimen/amend_insert_top"
-                android:layout_marginBottom="@dimen/amend_insert_bottom"
-                android:textColor="@color/text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/amend_content" />
+                <TextView
+                    android:id="@+id/amend_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/amend_content_vertical"
+                    android:layout_marginStart="@dimen/amend_content_start"
+                    android:text="@string/amend_container_content"
+                    android:textColor="@color/text"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/amend_separator" />
 
-            <androidx.constraintlayout.widget.Group
-                android:id="@+id/amend_hideable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:constraint_referenced_ids="amend_separator, amend_content, amend_enter" />
-            <!--tools:visibility="gone"-->
+                <EditText
+                    android:id="@+id/amend_enter"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/amend_insert_start"
+                    android:layout_marginTop="@dimen/amend_insert_top"
+                    android:layout_marginBottom="@dimen/amend_insert_bottom"
+                    android:textColor="@color/text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/amend_content" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/amend_hideable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewmodel.amendVisibility()}"
+                    app:constraint_referenced_ids="amend_separator, amend_content, amend_enter" />
+                <!--tools:visibility="gone"-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
