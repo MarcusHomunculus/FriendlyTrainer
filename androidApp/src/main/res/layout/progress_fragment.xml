@@ -33,11 +33,12 @@
                     android:textColor="@color/text"
                     android:textSize="@dimen/main_container_title_size"
                     android:textStyle="bold"
-                    android:drawableEnd="@{viewmodel.progressIconResource()}"
+                    android:drawableEnd="@{context.getDrawable(viewmodel.progressIconResource()), default=@drawable/collapse_arrow}"
                     android:paddingEnd="@dimen/main_container_title_arrow_end"
                     android:paddingStart="@dimen/main_container_title_margin_start"
                     android:paddingVertical="@dimen/main_container_title_margin_vertical"
                     android:gravity="start|center_vertical"
+                    android:onClick="@{_ -> viewmodel.focus(com.github.friendlytrainer.android.viewmodels.MainViewModel.InfoView.PROGRESS)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +72,7 @@
                     android:id="@+id/progress_hideable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewmodel.progressVisibility()}"
+                    android:visibility="@{viewmodel.progressVisibility(), default=visible}"
                     app:constraint_referenced_ids="progress_separator, progress_graph" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
