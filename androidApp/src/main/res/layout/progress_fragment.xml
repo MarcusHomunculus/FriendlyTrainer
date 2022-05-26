@@ -47,10 +47,10 @@
                 <View
                     android:id="@+id/progress_separator"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="@dimen/main_container_separator_strength"
                     android:layout_marginHorizontal="@dimen/main_container_separator_sides"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginBottom="@dimen/main_container_separator_vertical"
+                    android:layout_marginTop="@dimen/main_container_separator_top"
+                    android:layout_marginBottom="@dimen/main_container_separator_bottom"
                     android:background="@color/cream"
                     app:layout_constraintTop_toBottomOf="@id/progress_header" />
 

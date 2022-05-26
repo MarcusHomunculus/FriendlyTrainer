@@ -2,5 +2,6 @@
 <resources>
     <string name="amend_container_title">Add result</string>
     <string name="amend_container_content">How many did you achieve today?</string>
+    <string name="amend_container_button">Confirm</string>
     <string name="progress_container_title">Progress</string>
 </resources>
