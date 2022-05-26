@@ -73,18 +73,29 @@
                     android:layout_marginStart="@dimen/amend_insert_start"
                     android:layout_marginTop="@dimen/amend_insert_top"
                     android:layout_marginBottom="@dimen/amend_insert_bottom"
-                    android:textColor="@color/text"
+                    android:padding="7dp"
                     android:inputType="number"
+                    android:textColor="@color/text"
+                    android:background="@color/text_edit"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/amend_content" />
+
+                <View
+                    android:id="@+id/amend_enter_deco"
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:background="@color/text"
+                    android:layout_marginTop="3dp"
+                    app:layout_constraintTop_toBottomOf="@id/amend_enter"
+                    app:layout_constraintStart_toStartOf="@id/amend_enter" />
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/amend_hideable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="@{viewmodel.state.amend.visibility, default=visible}"
-                    app:constraint_referenced_ids="amend_separator, amend_content, amend_enter" />
+                    app:constraint_referenced_ids="amend_separator, amend_content, amend_enter, amend_enter_deco" />
                 <!--tools:visibility="gone"-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>

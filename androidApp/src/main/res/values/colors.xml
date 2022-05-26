@@ -13,4 +13,5 @@
     <color name="text">#000000</color>
     <color name="blue_transparent">#A6A0BCC2</color>
     <color name="green_transparent">#A6DAE5D0</color>
+    <color name="text_edit">#66FFFFFF</color>
 </resources>
