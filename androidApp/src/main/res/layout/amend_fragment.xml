@@ -77,6 +77,7 @@
                     android:inputType="number"
                     android:textColor="@color/text"
                     android:background="@color/text_edit"
+                    android:text="@={viewmodel.newCount}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/amend_content" />
@@ -98,6 +99,8 @@
                     android:text="Confirm"
                     android:textColor="@color/text"
                     android:background="@color/blue"
+                    android:onClick="@{() -> viewmodel.submitNewCount()}"
+                    android:visibility="@{viewmodel.amendButtonState, default=visible}"
                     app:layout_constraintTop_toBottomOf="@id/amend_content"
                     app:layout_constraintStart_toEndOf="@id/amend_enter"
                     app:layout_constraintEnd_toEndOf="parent" />
@@ -107,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="@{viewmodel.state.amend.visibility, default=visible}"
-                    app:constraint_referenced_ids="amend_separator, amend_content, amend_enter, amend_enter_deco, amend_confirm" />
+                    app:constraint_referenced_ids="amend_separator, amend_content, amend_enter, amend_enter_deco" />
                 <!--tools:visibility="gone"-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
