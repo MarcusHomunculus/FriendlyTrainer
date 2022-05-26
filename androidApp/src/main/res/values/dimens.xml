@@ -13,6 +13,6 @@
     <dimen name="amend_content_start">40dp</dimen>
     <dimen name="amend_content_vertical">20dp</dimen>
     <dimen name="amend_insert_start">60dp</dimen>
-    <dimen name="amend_insert_top">10dp</dimen>
+    <dimen name="amend_insert_top">13dp</dimen>
     <dimen name="amend_insert_bottom">20dp</dimen>
 </resources>

@@ -73,7 +73,7 @@
                     android:layout_marginStart="@dimen/amend_insert_start"
                     android:layout_marginTop="@dimen/amend_insert_top"
                     android:layout_marginBottom="@dimen/amend_insert_bottom"
-                    android:padding="7dp"
+                    android:padding="9dp"
                     android:inputType="number"
                     android:textColor="@color/text"
                     android:background="@color/text_edit"
@@ -90,12 +90,24 @@
                     app:layout_constraintTop_toBottomOf="@id/amend_enter"
                     app:layout_constraintStart_toStartOf="@id/amend_enter" />
 
+                <Button
+                    android:id="@+id/amend_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/amend_insert_top"
+                    android:text="Confirm"
+                    android:textColor="@color/text"
+                    android:background="@color/blue"
+                    app:layout_constraintTop_toBottomOf="@id/amend_content"
+                    app:layout_constraintStart_toEndOf="@id/amend_enter"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/amend_hideable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="@{viewmodel.state.amend.visibility, default=visible}"
-                    app:constraint_referenced_ids="amend_separator, amend_content, amend_enter, amend_enter_deco" />
+                    app:constraint_referenced_ids="amend_separator, amend_content, amend_enter, amend_enter_deco, amend_confirm" />
                 <!--tools:visibility="gone"-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
