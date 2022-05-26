@@ -33,7 +33,7 @@
                     android:textColor="@color/text"
                     android:textSize="@dimen/main_container_title_size"
                     android:textStyle="bold"
-                    android:drawableEnd="@{context.getDrawable(viewmodel.amendIconResource()), default=@drawable/collapse_arrow}"
+                    android:drawableEnd="@{context.getDrawable(viewmodel.state.amend.arrowIcon), default=@drawable/collapse_arrow}"
                     android:paddingEnd="@dimen/main_container_title_arrow_end"
                     android:paddingStart="@dimen/main_container_title_margin_start"
                     android:paddingVertical="@dimen/main_container_title_margin_vertical"
@@ -74,6 +74,7 @@
                     android:layout_marginTop="@dimen/amend_insert_top"
                     android:layout_marginBottom="@dimen/amend_insert_bottom"
                     android:textColor="@color/text"
+                    android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/amend_content" />
@@ -82,7 +83,7 @@
                     android:id="@+id/amend_hideable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewmodel.amendVisibility(), default=visible}"
+                    android:visibility="@{viewmodel.state.amend.visibility, default=visible}"
                     app:constraint_referenced_ids="amend_separator, amend_content, amend_enter" />
                 <!--tools:visibility="gone"-->
 

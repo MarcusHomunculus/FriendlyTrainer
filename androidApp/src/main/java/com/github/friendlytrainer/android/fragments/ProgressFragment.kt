@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.databinding.ProgressFragmentBinding
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
 
-class ProgressFragment : ExpandableFragment(R.layout.progress_fragment, R.id.progress_hideable) {
+class ProgressFragment : Fragment() {
     private val sharedModel: MainViewModel by activityViewModels()
-    private var binding: ProgressFragmentBinding? = null
+    private lateinit var binding: ProgressFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,8 +25,7 @@ class ProgressFragment : ExpandableFragment(R.layout.progress_fragment, R.id.pro
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.apply {
-            viewmodel = sharedModel
-        }
+        binding.viewmodel = sharedModel
+        binding.lifecycleOwner = this
     }
 }
