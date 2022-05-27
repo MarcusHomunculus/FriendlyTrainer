@@ -1,8 +1,8 @@
 package com.github.friendlytrainer.android.viewmodels
 
+import android.content.Context
 import android.util.Log
 import android.view.View
-import androidx.databinding.BaseObservable
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -24,8 +24,10 @@ class MainViewModel : ViewModel() {
 
     private var _state: MutableLiveData<ViewState> = MutableLiveData(ViewState(InfoView.AMEND))
     private var _amendButtonState: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
+    private var _reinforcementText: MutableLiveData<String> = MutableLiveData()
     val state: LiveData<ViewState> get() = _state
     val amendButtonState: LiveData<Int> get() = _amendButtonState
+    val reinforcementText: LiveData<String> get() = _reinforcementText
     val newCount: ObservableField<String> = ObservableField()
 
     init {
@@ -41,8 +43,13 @@ class MainViewModel : ViewModel() {
         _amendButtonState.value = deriveAmendButtonState()
     }
 
-    fun submitNewCount() {
-        Log.i(MainViewModel::class.java.name, "Request to store ${newCount.get()} received")
+    fun commitNewCount() {
+        _reinforcementText.value = nextReinforcementText(newCount.get()!!.toInt())
+        newCount.set("")    // reset
+    }
+
+    fun nextReinforcementText(new: Int): String {
+        return "$new is awesome!"
     }
 
     private fun deriveAmendButtonState(): Int {
