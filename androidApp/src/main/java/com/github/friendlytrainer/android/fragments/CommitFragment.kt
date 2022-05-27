@@ -10,19 +10,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.github.friendlytrainer.android.R
-import com.github.friendlytrainer.android.databinding.AmendFragmentBinding
+import com.github.friendlytrainer.android.databinding.CommitFragmentBinding
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
 
-class AmendFragment : Fragment() {
+class CommitFragment : Fragment() {
     private val sharedModel: MainViewModel by activityViewModels()
-    private lateinit var binding: AmendFragmentBinding
+    private lateinit var binding: CommitFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val fragmentBinding = AmendFragmentBinding.inflate(inflater, container, false)
+        val fragmentBinding = CommitFragmentBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
     }
