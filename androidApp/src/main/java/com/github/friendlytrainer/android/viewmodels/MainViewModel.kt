@@ -1,16 +1,17 @@
 package com.github.friendlytrainer.android.viewmodels
 
-import android.content.Context
-import android.util.Log
+import android.app.Application
 import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.github.friendlytrainer.android.R
+import com.github.friendlytrainer.storage.DatabaseDriverFactory
+import com.github.friendlytrainer.TrainerData
 
-class MainViewModel : ViewModel() {
+class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     enum class InfoView { AMEND, PROGRESS }
     class CardState(isExpanded: Boolean) {
@@ -22,6 +23,7 @@ class MainViewModel : ViewModel() {
         val progress = CardState(active == InfoView.PROGRESS)
     }
 
+    private val _data: TrainerData = TrainerData(DatabaseDriverFactory(getApplication()))
     private var _state: MutableLiveData<ViewState> = MutableLiveData(ViewState(InfoView.AMEND))
     private var _amendButtonState: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
     private var _reinforcementText: MutableLiveData<String> = MutableLiveData()
@@ -44,8 +46,10 @@ class MainViewModel : ViewModel() {
     }
 
     fun commitNewCount() {
-        _reinforcementText.value = nextReinforcementText(newCount.get()!!.toInt())
+        val new = newCount.get()!!.toInt()
+        _reinforcementText.value = nextReinforcementText(new)
         newCount.set("")    // reset
+        _data.add(new)
     }
 
     fun nextReinforcementText(new: Int): String {
