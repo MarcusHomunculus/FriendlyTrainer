@@ -7,7 +7,7 @@ android {
     compileSdk = 32
     defaultConfig {
         applicationId = "com.github.friendlytrainer.android"
-        minSdk = 23
+        minSdk = 26 // 23
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
