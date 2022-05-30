@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -46,6 +47,11 @@ class ProgressFragment : Fragment() {
     }
 
     private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<String>>) {
+        if (what.first.size() < 2) {
+            Toast.makeText(activity, "Not enough data to show!", Toast.LENGTH_LONG).show()
+            _sharedModel.focus(MainViewModel.InfoView.AMEND)
+            return
+        }
         canvas.clear()
         val formatter = LineAndPointFormatter(Color.RED, Color.GREEN, Color.TRANSPARENT, null)
         canvas.addSeries(what.first, formatter)
