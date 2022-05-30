@@ -1,6 +1,5 @@
 package com.github.friendlytrainer.android.fragments
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +30,7 @@ class CommitFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = sharedModel
         binding.lifecycleOwner = this
-        sharedModel.reinforcementText.observe(viewLifecycleOwner, Observer<String> { new ->
+        sharedModel.reinforcementText.observe(viewLifecycleOwner) { new ->
             context?.let {
                 val builder = AlertDialog.Builder(it)
                 builder.setTitle("Super")
@@ -42,6 +41,6 @@ class CommitFragment : Fragment() {
                 dialog.show()
                 // TODO: replace by style (eg. https://stackoverflow.com/a/42373688)
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.text))
-            } })
+            } }
     }
 }
