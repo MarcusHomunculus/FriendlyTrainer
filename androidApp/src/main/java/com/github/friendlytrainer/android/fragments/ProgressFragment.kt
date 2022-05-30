@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.androidplot.xy.LineAndPointFormatter
-import com.androidplot.xy.XYGraphWidget
-import com.androidplot.xy.XYPlot
-import com.androidplot.xy.XYSeries
+import com.androidplot.ui.HorizontalPositioning
+import com.androidplot.ui.VerticalPositioning
+import com.androidplot.util.PixelUtils
+import com.androidplot.xy.*
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.databinding.ProgressFragmentBinding
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
@@ -46,7 +46,7 @@ class ProgressFragment : Fragment() {
     }
 
     private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<String>>) {
-        val formatter = LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null)
+        val formatter = LineAndPointFormatter(Color.RED, Color.GREEN, Color.TRANSPARENT, null)
         canvas.addSeries(what.first, formatter)
         canvas.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object: Format() {
             override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer {
@@ -58,5 +58,29 @@ class ProgressFragment : Fragment() {
                 return null
             }
         }
+        canvas.legend.isVisible = false
+        canvas.setDomainStep(StepMode.INCREMENT_BY_VAL, 1.0)
+        canvas.setRangeStep(StepMode.INCREMENT_BY_VAL, 1.0)
+        canvas.domainTitle.position(
+            PixelUtils.dpToPix(50.0F), HorizontalPositioning.ABSOLUTE_FROM_RIGHT,
+            PixelUtils.dpToPix(25.0F), VerticalPositioning.ABSOLUTE_FROM_BOTTOM)
+        val (min, max) = what.first.minMax(1, null)
+        canvas.setRangeBoundaries(min - 1, BoundaryMode.FIXED, max + 1, BoundaryMode.FIXED)
+    }
+
+    private fun XYSeries.minMax(absoluteMin: Int? = null, absoluteMax: Int? = null): Pair<Int, Int> {
+        var min = Int.MAX_VALUE
+        var max = Int.MIN_VALUE
+        for (i in 0 until this.size()) {
+            if (this.getY(i).toInt() < min)
+                min = this.getY(i).toInt()
+            else if (this.getY(i).toInt() > max)
+                max = this.getY(i).toInt()
+        }
+        if (absoluteMin != null && min < absoluteMin)
+            min = absoluteMin
+        if (absoluteMax != null && max > absoluteMax)
+            max = absoluteMax
+        return Pair(min, max)
     }
 }

@@ -58,7 +58,7 @@
                 <com.androidplot.xy.XYPlot
                     android:id="@+id/progress_graph"
                     style="@style/APDefacto.Light"
-                    ap:domainTitle="time"
+                    ap:domainTitle="date"
                     ap:rangeTitle="count"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
