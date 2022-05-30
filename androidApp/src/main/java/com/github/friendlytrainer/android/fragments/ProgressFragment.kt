@@ -46,6 +46,7 @@ class ProgressFragment : Fragment() {
     }
 
     private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<String>>) {
+        canvas.clear()
         val formatter = LineAndPointFormatter(Color.RED, Color.GREEN, Color.TRANSPARENT, null)
         canvas.addSeries(what.first, formatter)
         canvas.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object: Format() {
