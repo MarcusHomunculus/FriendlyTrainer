@@ -7,6 +7,8 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.androidplot.xy.SimpleXYSeries
+import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.storage.DatabaseDriverFactory
 import com.github.friendlytrainer.TrainerData
@@ -54,6 +56,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     fun nextReinforcementText(new: Int): String {
         return "$new is awesome!"
+    }
+
+    fun getHistory(): Pair<XYSeries, List<String>> {
+        val history = _data.getHistory()
+        val counts = history.map { it.howMany }
+        val labels = history.map { "${it.at.day}-${it.at.month}" }
+        val vals = SimpleXYSeries(counts, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Sit-ups")
+        return Pair(vals, labels)
     }
 
     private fun deriveAmendButtonState(): Int {
