@@ -23,7 +23,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     internal fun addExercise(new: ExerciseRecord) {
         dbQuery.transaction {
-            dbQuery.addExercise(new.date, new.exercise, new.count.toLong())
+                dbQuery.addExerciseAdditive(new.date, new.exercise, new.count.toLong())
         }
     }
 
