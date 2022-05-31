@@ -12,6 +12,7 @@ import com.androidplot.ui.HorizontalPositioning
 import com.androidplot.ui.VerticalPositioning
 import com.androidplot.util.PixelUtils
 import com.androidplot.xy.*
+import com.github.friendlytrainer.Constants
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.databinding.ProgressFragmentBinding
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
@@ -46,7 +47,7 @@ class ProgressFragment : Fragment() {
     }
 
     private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<String>>) {
-        if (what.first.size() < 2) {
+        if (what.first.size() < Constants.MIN_SAMPLES) {
             Toast.makeText(activity, "Not enough data to show!", Toast.LENGTH_LONG).show()
             _sharedModel.focus(MainViewModel.InfoView.AMEND)
             return
