@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    -->
+    <!-- https://colorhunt.co/palette/f9ebc8fefbe7dae5d0a0bcc2 -->
+    <color name="beige">#F9EBC8</color>
+    <color name="cream">#FEFBE7</color>
+    <color name="green">#DAE5D0</color>
+    <color name="blue">#A0BCC2</color>
+    <color name="text">#000000</color>
+    <color name="blue_transparent">#A6A0BCC2</color>
+    <color name="green_transparent">#A6DAE5D0</color>
+    <color name="text_edit">#66FFFFFF</color>
 </resources>
