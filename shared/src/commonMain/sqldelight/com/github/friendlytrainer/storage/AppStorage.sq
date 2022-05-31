@@ -1,12 +1,27 @@
 CREATE TABLE History (
 date TEXT NOT NULL,
 exercise TEXT NOT NULL,
-count INTEGER NOT NULL
+count INTEGER NOT NULL,
+CONSTRAINT entry UNIQUE (date, exercise)
 );
 
 addExercise:
 INSERT INTO History(date, exercise, count)
 VALUES(?, ?, ?);
+
+updateCount:
+UPDATE History SET count = ? WHERE ? = date AND ? = exercise;
+
+getExerciseFrom:
+SELECT count FROM History WHERE ? = date AND ? = exercise;
+
+addExerciseAdditive:
+INSERT OR REPLACE INTO History (date, exercise, count)
+VALUES(
+    :date,
+    :exercise,
+    COALESCE(((SELECT count FROM History WHERE :date = date AND :exercise = exercise) + :count), :count)
+);
 
 clearHistory:
 DELETE FROM History;
