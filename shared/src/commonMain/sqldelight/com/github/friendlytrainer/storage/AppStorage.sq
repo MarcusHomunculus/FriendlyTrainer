@@ -27,7 +27,7 @@ clearHistory:
 DELETE FROM History;
 
 fullHistory:
-SELECT * FROM History;
+SELECT * FROM History ORDER BY date ASC;
 
 lastMonthHistory:
 SELECT * FROM History WHERE date > date('now', '-30 days');
