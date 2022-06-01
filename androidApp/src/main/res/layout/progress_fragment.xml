@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="viewmodel" type="com.github.friendlytrainer.android.viewmodels.MainViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/container_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/main_container_spacing_top"
+            android:layout_marginHorizontal="@dimen/main_container_outside_margin"
+            app:cardCornerRadius="@dimen/main_container_radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="@color/green_transparent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                xmlns:ap="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/progress_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/green"
+                    android:text="@string/progress_container_title"
+                    android:textColor="@color/text"
+                    android:textSize="@dimen/main_container_title_size"
+                    android:textStyle="bold"
+                    android:drawableEnd="@{context.getDrawable(viewmodel.state.progress.arrowIcon), default=@drawable/collapse_arrow}"
+                    android:paddingEnd="@dimen/main_container_title_arrow_end"
+                    android:paddingStart="@dimen/main_container_title_margin_start"
+                    android:paddingVertical="@dimen/main_container_title_margin_vertical"
+                    android:gravity="start|center_vertical"
+                    android:onClick="@{() -> viewmodel.focus(com.github.friendlytrainer.android.viewmodels.MainViewModel.InfoView.PROGRESS)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:stateListAnimator="@null"/>
+
+                <View
+                    android:id="@+id/progress_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/main_container_separator_strength"
+                    android:layout_marginHorizontal="@dimen/main_container_separator_sides"
+                    android:layout_marginTop="@dimen/main_container_separator_top"
+                    android:layout_marginBottom="@dimen/main_container_separator_bottom"
+                    android:background="@color/cream"
+                    app:layout_constraintTop_toBottomOf="@id/progress_header" />
+
+                <com.androidplot.xy.XYPlot
+                    android:id="@+id/progress_graph"
+                    style="@style/APDefacto.Light"
+                    ap:domainTitle="date"
+                    ap:rangeTitle="count"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/progress_separator"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/progress_hideable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewmodel.state.progress.visibility, default=visible}"
+                    app:constraint_referenced_ids="progress_separator, progress_graph" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
