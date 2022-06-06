@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="viewmodel" type="com.github.friendlytrainer.android.viewmodels.MainViewModel" />
     </data>
@@ -62,11 +63,11 @@
                     android:layout_marginStart="@dimen/commit_content_start"
                     android:text="@string/commit_container_content"
                     android:textColor="@color/text"
+                    android:labelFor="@id/amend_enter"
                     app:layout_constraintStart_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/amend_separator" />
 
-                <!-- TODO: add autofill?! -->
                 <EditText
                     android:id="@+id/amend_enter"
                     android:layout_width="@dimen/commit_insert_width"
@@ -81,7 +82,8 @@
                     android:text="@={viewmodel.newCount}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/amend_content" />
+                    app:layout_constraintTop_toBottomOf="@id/amend_content"
+                    tools:ignore="Autofill" />
 
                 <View
                     android:id="@+id/amend_enter_deco"
