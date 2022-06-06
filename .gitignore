@@ -1,5 +1,7 @@
+# IDE & build system
 *.iml
 .gradle
+gradle/
 /local.properties
 .idea
 .DS_Store
@@ -9,3 +11,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+androidApp/release
+
+# workspace helper
+tmp.sh
+
+# play store stuff
+advertisement
