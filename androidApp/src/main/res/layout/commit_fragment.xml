@@ -70,8 +70,8 @@
 
                 <EditText
                     android:id="@+id/amend_enter"
-                    android:layout_width="@dimen/commit_insert_width"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/commit_insert_size"
+                    android:layout_height="@dimen/commit_insert_size"
                     android:layout_marginStart="@dimen/commit_insert_start"
                     android:layout_marginTop="@dimen/commit_insert_top"
                     android:layout_marginBottom="@dimen/commit_insert_bottom"
@@ -80,6 +80,7 @@
                     android:textColor="@color/text"
                     android:background="@color/text_edit"
                     android:text="@={viewmodel.newCount}"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/amend_content"
@@ -87,7 +88,7 @@
 
                 <View
                     android:id="@+id/amend_enter_deco"
-                    android:layout_width="@dimen/commit_insert_width"
+                    android:layout_width="@dimen/commit_insert_size"
                     android:layout_height="1dp"
                     android:background="@color/text"
                     android:layout_marginTop="@dimen/commit_insert_underline_space"
