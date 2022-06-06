@@ -17,7 +17,7 @@
     <dimen name="commit_insert_start">60dp</dimen>
     <dimen name="commit_insert_top">13dp</dimen>
     <dimen name="commit_insert_padding">9dp</dimen>
-    <dimen name="commit_insert_width">40dp</dimen>
+    <dimen name="commit_insert_size">48dp</dimen>
     <dimen name="commit_insert_underline_space">3dp</dimen>
     <dimen name="commit_insert_bottom">20dp</dimen>
 </resources>
