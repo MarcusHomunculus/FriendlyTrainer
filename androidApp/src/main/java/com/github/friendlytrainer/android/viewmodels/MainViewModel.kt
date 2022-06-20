@@ -5,18 +5,15 @@ import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
 import com.androidplot.xy.SimpleXYSeries
 import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.storage.DatabaseDriverFactory
 import com.github.friendlytrainer.TrainerData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -30,7 +27,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val progress = CardState(active == InfoView.PROGRESS)
     }
 
-    private val _data: TrainerData = TrainerData(DatabaseDriverFactory(getApplication()))
+    private val _data: TrainerData = TrainerData(DatabaseDriverFactory(getApplication()), viewModelScope)
     private var _state: MutableLiveData<ViewState> = MutableLiveData(ViewState(InfoView.AMEND))
     private var _amendButtonState: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
     private var _reinforcementText: MutableLiveData<String> = MutableLiveData()
@@ -52,9 +49,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             // TODO: can this be realized without the additional live data object?!
             _reinforcementText.value = nextReinforcementText(new)
         }
-        CoroutineScope(Dispatchers.IO).launch {
-            _data.add(countValue.asFlow().flowOn(Dispatchers.Default))
-        }
+        _data.registerCountFlow(countValue.asFlow())
     }
 
     fun focus(which: InfoView) {

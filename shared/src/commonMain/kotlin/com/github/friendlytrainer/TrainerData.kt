@@ -3,11 +3,16 @@ package com.github.friendlytrainer
 import com.github.friendlytrainer.ExerciseRecord
 import com.github.friendlytrainer.storage.Database
 import com.github.friendlytrainer.storage.DatabaseDriverFactory
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+//import kotlinx.coroutines.*
+//import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 
-class TrainerData(driverFactory: DatabaseDriverFactory) {
+class TrainerData(driverFactory: DatabaseDriverFactory, val scope: CoroutineScope) {
 
     data class SimpleDate(val month: Int, val day: Int)
     data class SingleExerciseRecord(val howMany: Int, val at: SimpleDate)
@@ -21,7 +26,13 @@ class TrainerData(driverFactory: DatabaseDriverFactory) {
             .map { SingleExerciseRecord(it.first, SimpleDate(it.second.monthNumber, it.second.dayOfMonth)) }
     }
 
-    suspend fun add(counts: Flow<Int>) {
+    fun registerCountFlow(counts: Flow<Int>) {
+        scope.launch {
+            collectCounts(counts.flowOn(Dispatchers.IO))
+        }
+    }
+
+    private suspend fun collectCounts(counts: Flow<Int>) {
         counts.collect { count ->
             val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
             val new = ExerciseRecord(today.toString(), "Sit-up", count.toUInt())
