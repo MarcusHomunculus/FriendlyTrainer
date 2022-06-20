@@ -4,14 +4,16 @@ import android.app.Application
 import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.androidplot.xy.SimpleXYSeries
 import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.storage.DatabaseDriverFactory
 import com.github.friendlytrainer.TrainerData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -29,10 +31,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     private var _state: MutableLiveData<ViewState> = MutableLiveData(ViewState(InfoView.AMEND))
     private var _amendButtonState: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
     private var _reinforcementText: MutableLiveData<String> = MutableLiveData()
+    private var _countValue: MutableLiveData<Int> = MutableLiveData()
+
     val state: LiveData<ViewState> get() = _state
     val amendButtonState: LiveData<Int> get() = _amendButtonState
     val reinforcementText: LiveData<String> get() = _reinforcementText
     val newCount: ObservableField<String> = ObservableField()
+    private val countValue: LiveData<Int> get() = _countValue
 
     init {
         newCount.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback() {
@@ -40,6 +45,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 _amendButtonState.value = deriveAmendButtonState()
             }
         })
+        countValue.observe(getApplication()) { new ->
+            // TODO: can this be realized without the additional live data object?!
+            _reinforcementText.value = nextReinforcementText(new)
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            _data.add(countValue.asFlow().flowOn(Dispatchers.Default))
+        }
     }
 
     fun focus(which: InfoView) {
@@ -48,10 +60,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun commitNewCount() {
-        val new = newCount.get()!!.toInt()
-        _reinforcementText.value = nextReinforcementText(new)
-        newCount.set("")    // reset
-        _data.add(new)
+        _countValue.value = newCount.get()!!.toInt()
+        // TODO: countValue to flow for TrainerData
     }
 
     fun nextReinforcementText(new: Int): String {
