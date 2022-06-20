@@ -44,7 +44,7 @@ class ProgressFragment : Fragment() {
             if (newState.progress.visibility == View.VISIBLE)
                 draw(_plot, _sharedModel.getHistory())
         }
-    }
+}
 
     private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<String>>) {
         if (what.first.size() < Constants.MIN_SAMPLES) {

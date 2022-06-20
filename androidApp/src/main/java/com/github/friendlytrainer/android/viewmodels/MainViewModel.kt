@@ -4,7 +4,10 @@ import android.app.Application
 import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
 import com.androidplot.xy.SimpleXYSeries
 import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
