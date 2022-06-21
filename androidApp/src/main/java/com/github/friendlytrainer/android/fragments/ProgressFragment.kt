@@ -46,7 +46,7 @@ class ProgressFragment : Fragment() {
         }
 }
 
-    private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<String>>) {
+    private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<MainViewModel.DateStruct>>) {
         if (what.first.size() < Constants.MIN_SAMPLES) {
             Toast.makeText(activity, "Not enough data to show!", Toast.LENGTH_LONG).show()
             _sharedModel.focus(MainViewModel.InfoView.AMEND)
@@ -58,7 +58,7 @@ class ProgressFragment : Fragment() {
         canvas.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object: Format() {
             override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer {
                 val idx = (obj as Number).toFloat().toInt()
-                return toAppendTo.append(what.second[idx])
+                return toAppendTo.append("${what.second[idx].day}-${what.second[idx].month}")
             }
 
             override fun parseObject(source: String, pos: ParsePosition): Any? {

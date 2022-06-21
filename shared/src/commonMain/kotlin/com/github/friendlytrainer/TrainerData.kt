@@ -3,13 +3,13 @@ package com.github.friendlytrainer
 import com.github.friendlytrainer.ExerciseRecord
 import com.github.friendlytrainer.storage.Database
 import com.github.friendlytrainer.storage.DatabaseDriverFactory
-//import kotlinx.coroutines.*
-//import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 
 class TrainerData(driverFactory: DatabaseDriverFactory, val scope: CoroutineScope) {
@@ -19,18 +19,17 @@ class TrainerData(driverFactory: DatabaseDriverFactory, val scope: CoroutineScop
 
     private val _database = Database(driverFactory)
 
-    fun getHistory(): List<SingleExerciseRecord> {
-        // TODO: cache here?!
-        return _database.allExercises()
-            .map { Pair(it.count.toInt(), LocalDate.parse(it.date)) }
-            .map { SingleExerciseRecord(it.first, SimpleDate(it.second.monthNumber, it.second.dayOfMonth)) }
-    }
-
     fun registerCountFlow(counts: Flow<Int>) {
         scope.launch {
             collectCounts(counts.flowOn(Dispatchers.IO))
         }
     }
+
+    fun historyFlow(): Flow<List<SingleExerciseRecord>> = flow {
+        while (true) {
+            emit(pullFullHistory())
+        }
+    }.flowOn(Dispatchers.Default)
 
     private suspend fun collectCounts(counts: Flow<Int>) {
         counts.collect { count ->
@@ -38,5 +37,11 @@ class TrainerData(driverFactory: DatabaseDriverFactory, val scope: CoroutineScop
             val new = ExerciseRecord(today.toString(), "Sit-up", count.toUInt())
             _database.addExercise(new)
         }
+    }
+
+    private suspend fun pullFullHistory(): List<SingleExerciseRecord> {
+        return _database.allExercises()
+            .map { Pair(it.count.toInt(), LocalDate.parse(it.date)) }
+            .map { SingleExerciseRecord(it.first, SimpleDate(it.second.monthNumber, it.second.dayOfMonth)) }
     }
 }
