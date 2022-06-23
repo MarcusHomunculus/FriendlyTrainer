@@ -24,11 +24,13 @@ android {
 }
 
 dependencies {
+    val ktxLifecycleVersion: String by project
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$ktxLifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$ktxLifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$ktxLifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.fragment:fragment-ktx:1.4.1")

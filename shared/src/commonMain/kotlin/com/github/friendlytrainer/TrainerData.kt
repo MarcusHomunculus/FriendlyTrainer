@@ -19,27 +19,13 @@ class TrainerData(driverFactory: DatabaseDriverFactory, val scope: CoroutineScop
 
     private val _database = Database(driverFactory)
 
-    fun registerCountFlow(counts: Flow<Int>) {
-        scope.launch {
-            collectCounts(counts.flowOn(Dispatchers.IO))
-        }
+    suspend fun addExercise(count: Int) {
+        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+        val new = ExerciseRecord(today.toString(), "Sit-up", count.toUInt())
+        _database.addExercise(new)
     }
 
-    fun historyFlow(): Flow<List<SingleExerciseRecord>> = flow {
-        while (true) {
-            emit(pullFullHistory())
-        }
-    }.flowOn(Dispatchers.Default)
-
-    private suspend fun collectCounts(counts: Flow<Int>) {
-        counts.collect { count ->
-            val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-            val new = ExerciseRecord(today.toString(), "Sit-up", count.toUInt())
-            _database.addExercise(new)
-        }
-    }
-
-    private suspend fun pullFullHistory(): List<SingleExerciseRecord> {
+    suspend fun history(): List<SingleExerciseRecord> {
         return _database.allExercises()
             .map { Pair(it.count.toInt(), LocalDate.parse(it.date)) }
             .map { SingleExerciseRecord(it.first, SimpleDate(it.second.monthNumber, it.second.dayOfMonth)) }
