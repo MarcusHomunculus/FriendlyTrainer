@@ -10,6 +10,8 @@ import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.storage.DatabaseDriverFactory
 import com.github.friendlytrainer.TrainerData
+import kotlinx.coroutines.async
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -58,11 +60,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         _countValue.value = newCount.get()!!.toInt()
     }
 
-    fun nextReinforcementText(new: Int): String {
-        return "$new is awesome!"
+    fun requestHistory(): Deferred<Pair<XYSeries, List<DateStruct>>> = viewModelScope.async {
+        _data.history().split()
     }
 
-    fun getHistory(): Pair<XYSeries, List<DateStruct>> = _data.history().split()
+    private fun nextReinforcementText(new: Int): String = "$new is awesome!"
 
     private fun deriveAmendButtonState(): Int {
         return if (_state.value!!.amend.visibility == View.GONE)

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.androidplot.ui.HorizontalPositioning
 import com.androidplot.ui.VerticalPositioning
 import com.androidplot.util.PixelUtils
@@ -16,6 +17,8 @@ import com.github.friendlytrainer.Constants
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.databinding.ProgressFragmentBinding
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.launch
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
@@ -41,10 +44,11 @@ class ProgressFragment : Fragment() {
         _binding.viewmodel = _sharedModel
         _binding.lifecycleOwner = this
         _sharedModel.state.observe(viewLifecycleOwner) { newState ->
+            lifecycleScope.launch {
             if (newState.progress.visibility == View.VISIBLE)
-                draw(_plot, _sharedModel.getHistory())
-        }
-}
+                draw(_plot, _sharedModel.requestHistory().await())
+        } }
+    }
 
     private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<MainViewModel.DateStruct>>) {
         if (what.first.size() < Constants.MIN_SAMPLES) {
