@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 
-class TrainerData(driverFactory: DatabaseDriverFactory, val scope: CoroutineScope) {
+class TrainerData(driverFactory: DatabaseDriverFactory) {
 
     data class SimpleDate(val month: Int, val day: Int)
     data class SingleExerciseRecord(val howMany: Int, val at: SimpleDate)
