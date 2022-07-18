@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.databinding.CommitFragmentBinding
+import com.github.friendlytrainer.android.factory.MainViewModelFactory
+import com.github.friendlytrainer.android.mixins.SharedDataStoring
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
 
-class CommitFragment : Fragment() {
-    private val sharedModel: MainViewModel by activityViewModels()
+class CommitFragment : Fragment(), SharedDataStoring {
+    private val sharedModel: MainViewModel by viewModels {
+        MainViewModelFactory(deriveSharedDatabaseHandle(activity!!.applicationContext))
+    }
     private lateinit var binding: CommitFragmentBinding
 
     override fun onCreateView(

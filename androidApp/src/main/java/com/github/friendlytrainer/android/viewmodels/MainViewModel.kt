@@ -5,21 +5,14 @@ import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
-import com.androidplot.xy.SimpleXYSeries
 import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
-import com.github.friendlytrainer.storage.DatabaseDriverFactory
-import com.github.friendlytrainer.TrainerData
+import com.github.friendlytrainer.android.storage.Storage
 import kotlinx.coroutines.async
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
-class MainViewModel(app: Application) : AndroidViewModel(app) {
+class MainViewModel(private val _data: Storage) : ViewModel() {
 
     enum class InfoView { AMEND, PROGRESS }
     class CardState(isExpanded: Boolean) {
@@ -32,7 +25,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
     data class DateStruct(val day: Int, val month: Int)
 
-    private val _data: TrainerData = TrainerData(DatabaseDriverFactory(getApplication()), viewModelScope)
     private var _state: MutableLiveData<ViewState> = MutableLiveData(ViewState(InfoView.AMEND))
     private var _amendButtonState: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
     private var _countValue: MutableLiveData<Int> = MutableLiveData()
@@ -61,7 +53,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun requestHistory(): Deferred<Pair<XYSeries, List<DateStruct>>> = viewModelScope.async {
-        _data.history().split()
+        _data.history()
     }
 
     private fun nextReinforcementText(new: Int): String = "$new is awesome!"
@@ -77,9 +69,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     private fun pushExercise(count: Int) = viewModelScope.launch { _data.addExercise(count) }
 
+    /*
     private fun List<TrainerData.SingleExerciseRecord>.split(): Pair<XYSeries, List<DateStruct>> {
         val pairs = this.map { Pair(it.howMany, DateStruct(it.at.day, it.at.month)) }
         val series = SimpleXYSeries(pairs.map { it.first }, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Sit-ups")
         return Pair(series, pairs.map { it.second })
     }
+    */
 }

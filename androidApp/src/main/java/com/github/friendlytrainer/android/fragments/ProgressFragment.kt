@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.androidplot.ui.HorizontalPositioning
 import com.androidplot.ui.VerticalPositioning
@@ -16,15 +16,18 @@ import com.androidplot.xy.*
 import com.github.friendlytrainer.Constants
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.databinding.ProgressFragmentBinding
+import com.github.friendlytrainer.android.factory.MainViewModelFactory
+import com.github.friendlytrainer.android.mixins.SharedDataStoring
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
 
-class ProgressFragment : Fragment() {
-    private val _sharedModel: MainViewModel by activityViewModels()
+class ProgressFragment : Fragment(), SharedDataStoring {
+    private val _sharedModel: MainViewModel by viewModels {
+        MainViewModelFactory(deriveSharedDatabaseHandle(activity!!.applicationContext))
+    }
     private lateinit var _binding: ProgressFragmentBinding
     private lateinit var _plot: XYPlot
 
