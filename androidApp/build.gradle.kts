@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("de.mannodermaus.android-junit5")
     kotlin("android")
 }
 
@@ -21,10 +22,24 @@ android {
     buildFeatures {
         dataBinding = true
     }
+
+    testOptions {
+        junitPlatform {
+            filters {
+                excludeTags("integration")
+                includeTags("unittest")
+            }
+
+            debugFilters {
+                includeTags("integration")
+            }
+        }
+    }
 }
 
 dependencies {
     val ktxLifecycleVersion: String by project
+    val junitVersion: String by project
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
@@ -36,4 +51,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.4.1")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.androidplot:androidplot-core:1.5.9")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$$junitVersion")
 }
