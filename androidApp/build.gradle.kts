@@ -55,4 +55,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$$junitVersion")
+    testImplementation("com.jraska.livedata:testing-ktx:1.2.0")
+    testImplementation("org.mockito:mockito-core:4.6.1")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
 }
