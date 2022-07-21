@@ -49,7 +49,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$ktxLifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.0")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.androidplot:androidplot-core:1.5.9")
 
