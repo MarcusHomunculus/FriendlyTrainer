@@ -1,6 +1,5 @@
 package com.github.friendlytrainer.android.viewmodels
 
-import android.app.Application
 import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
@@ -8,11 +7,11 @@ import androidx.lifecycle.*
 import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.storage.Storage
-import kotlinx.coroutines.async
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-class MainViewModel(private val _data: Storage) : ViewModel() {
+class MainViewModel(private val _data: Storage, externalScope: CoroutineScope? = null): ViewModel() {
+
+    private val _scope = externalScope ?: viewModelScope
 
     enum class InfoView { AMEND, PROGRESS }
     class CardState(isExpanded: Boolean) {
@@ -52,7 +51,7 @@ class MainViewModel(private val _data: Storage) : ViewModel() {
         _countValue.value = newCount.get()!!.toInt()
     }
 
-    fun requestHistory(): Deferred<Pair<XYSeries, List<DateStruct>>> = viewModelScope.async {
+    fun requestHistory(): Deferred<Pair<XYSeries, List<DateStruct>>> = _scope.async {
         _data.history()
     }
 
@@ -67,13 +66,5 @@ class MainViewModel(private val _data: Storage) : ViewModel() {
             View.VISIBLE
     }
 
-    private fun pushExercise(count: Int) = viewModelScope.launch { _data.addExercise(count) }
-
-    /*
-    private fun List<TrainerData.SingleExerciseRecord>.split(): Pair<XYSeries, List<DateStruct>> {
-        val pairs = this.map { Pair(it.howMany, DateStruct(it.at.day, it.at.month)) }
-        val series = SimpleXYSeries(pairs.map { it.first }, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Sit-ups")
-        return Pair(series, pairs.map { it.second })
-    }
-    */
+    private fun pushExercise(count: Int) = _scope.launch { _data.addExercise(count) }
 }

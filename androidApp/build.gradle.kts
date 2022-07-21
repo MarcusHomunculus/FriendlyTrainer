@@ -38,11 +38,12 @@ android {
 }
 
 dependencies {
+    val coroutinesVersion: String by project
     val ktxLifecycleVersion: String by project
     val junitVersion: String by project
     implementation(project(":shared"))
     implementation("com.google.android.material:material:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$ktxLifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$ktxLifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$ktxLifecycleVersion")
@@ -59,4 +60,5 @@ dependencies {
     testImplementation("org.mockito:mockito-core:4.6.1")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
 }
