@@ -4,6 +4,8 @@ plugins {
     id("com.squareup.sqldelight")
 }
 
+// https://touchlab.co/understanding-and-configuring-your-kmm-test-suite/
+
 kotlin {
     android()
 
@@ -20,18 +22,22 @@ kotlin {
     */
 
     val sqlDelightVersion: String by project
+    val junitVersion: String by project
+    val coroutinesVersion: String by project
 
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test"))
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+                implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
             }
         }
         val androidMain by getting {
@@ -39,7 +45,13 @@ kotlin {
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
-        val androidTest by getting
+        val androidTest by getting {
+            dependencies {
+                implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
+                implementation(kotlin("test-junit"))
+                implementation("junit:junit:4.13.2")
+            }
+        }
         /*
         val iosX64Main by getting
         val iosArm64Main by getting
