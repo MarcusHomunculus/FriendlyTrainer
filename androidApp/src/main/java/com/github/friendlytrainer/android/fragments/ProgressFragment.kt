@@ -26,7 +26,7 @@ import java.text.ParsePosition
 
 class ProgressFragment : Fragment(), SharedDataStoring {
     private val _sharedModel: MainViewModel by viewModels {
-        MainViewModelFactory(deriveSharedDatabaseHandle(activity!!.applicationContext))
+        MainViewModelFactory(deriveSharedDatabaseHandle(requireActivity().applicationContext))
     }
     private lateinit var _binding: ProgressFragmentBinding
     private lateinit var _plot: XYPlot

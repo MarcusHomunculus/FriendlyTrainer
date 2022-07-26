@@ -15,7 +15,7 @@ import com.github.friendlytrainer.android.viewmodels.MainViewModel
 
 class CommitFragment : Fragment(), SharedDataStoring {
     private val sharedModel: MainViewModel by viewModels {
-        MainViewModelFactory(deriveSharedDatabaseHandle(activity!!.applicationContext))
+        MainViewModelFactory(deriveSharedDatabaseHandle(requireActivity().applicationContext))
     }
     private lateinit var binding: CommitFragmentBinding
 
