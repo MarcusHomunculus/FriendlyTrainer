@@ -12,20 +12,23 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 
-class TrainerData(driverFactory: DatabaseDriverFactory) {
+class TrainerData(driverFactory: DatabaseDriverFactory, clock: Clock) {
+
+    constructor(driverFactory: DatabaseDriverFactory) : this(driverFactory, Clock.System)
 
     data class SimpleDate(val month: Int, val day: Int)
     data class SingleExerciseRecord(val howMany: Int, val at: SimpleDate)
 
     private val _database = Database(driverFactory)
+    private val _clock = clock
 
-    suspend fun addExercise(count: Int) {
-        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+    fun addExercise(count: Int) {
+        val today = _clock.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
         val new = ExerciseRecord(today.toString(), "Sit-up", count.toUInt())
         _database.addExercise(new)
     }
 
-    suspend fun history(): List<SingleExerciseRecord> {
+    fun history(): List<SingleExerciseRecord> {
         return _database.allExercises()
             .map { Pair(it.count.toInt(), LocalDate.parse(it.date)) }
             .map { SingleExerciseRecord(it.first, SimpleDate(it.second.monthNumber, it.second.dayOfMonth)) }
