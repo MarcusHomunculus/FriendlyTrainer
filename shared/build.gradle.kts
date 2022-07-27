@@ -5,6 +5,7 @@ plugins {
 }
 
 // https://touchlab.co/understanding-and-configuring-your-kmm-test-suite/
+// https://github.com/liauli/sqldelight-test/tree/master/shared/src/commonTest
 
 kotlin {
     android()
@@ -47,9 +48,13 @@ kotlin {
         }
         val androidTest by getting {
             dependencies {
-                implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
+                // implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
+                implementation("androidx.test:core:1.4.0")
+                implementation("org.robolectric:robolectric:4.8.1")
+                implementation("org.mockito:mockito-core:4.6.1")
+                implementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
             }
         }
         /*
