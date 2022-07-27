@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.androidplot.ui.HorizontalPositioning
 import com.androidplot.ui.VerticalPositioning
 import com.androidplot.util.PixelUtils
@@ -15,13 +16,18 @@ import com.androidplot.xy.*
 import com.github.friendlytrainer.Constants
 import com.github.friendlytrainer.android.R
 import com.github.friendlytrainer.android.databinding.ProgressFragmentBinding
+import com.github.friendlytrainer.android.factory.MainViewModelFactory
+import com.github.friendlytrainer.android.mixins.SharedDataStoring
 import com.github.friendlytrainer.android.viewmodels.MainViewModel
+import kotlinx.coroutines.launch
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
 
-class ProgressFragment : Fragment() {
-    private val _sharedModel: MainViewModel by activityViewModels()
+class ProgressFragment : Fragment(), SharedDataStoring {
+    private val _sharedModel: MainViewModel by viewModels {
+        MainViewModelFactory(deriveSharedDatabaseHandle(requireActivity().applicationContext))
+    }
     private lateinit var _binding: ProgressFragmentBinding
     private lateinit var _plot: XYPlot
 
@@ -41,12 +47,13 @@ class ProgressFragment : Fragment() {
         _binding.viewmodel = _sharedModel
         _binding.lifecycleOwner = this
         _sharedModel.state.observe(viewLifecycleOwner) { newState ->
+            lifecycleScope.launch {
             if (newState.progress.visibility == View.VISIBLE)
-                draw(_plot, _sharedModel.getHistory())
-        }
+                draw(_plot, _sharedModel.requestHistory().await())
+        } }
     }
 
-    private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<String>>) {
+    private fun draw(canvas: XYPlot, what: Pair<XYSeries, List<MainViewModel.DateStruct>>) {
         if (what.first.size() < Constants.MIN_SAMPLES) {
             Toast.makeText(activity, "Not enough data to show!", Toast.LENGTH_LONG).show()
             _sharedModel.focus(MainViewModel.InfoView.AMEND)
@@ -58,7 +65,7 @@ class ProgressFragment : Fragment() {
         canvas.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object: Format() {
             override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer {
                 val idx = (obj as Number).toFloat().toInt()
-                return toAppendTo.append(what.second[idx])
+                return toAppendTo.append("${what.second[idx].day}-${what.second[idx].month}")
             }
 
             override fun parseObject(source: String, pos: ParsePosition): Any? {

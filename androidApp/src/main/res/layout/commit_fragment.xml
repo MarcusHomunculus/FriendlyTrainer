@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="viewmodel" type="com.github.friendlytrainer.android.viewmodels.MainViewModel" />
     </data>
@@ -29,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/blue"
-                    android:text="@string/amend_container_title"
+                    android:text="@string/commit_container_title"
                     android:textColor="@color/text"
                     android:textSize="@dimen/main_container_title_size"
                     android:textStyle="bold"
@@ -58,37 +59,39 @@
                     android:id="@+id/amend_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/amend_content_vertical"
-                    android:layout_marginStart="@dimen/amend_content_start"
-                    android:text="@string/amend_container_content"
+                    android:layout_marginVertical="@dimen/commit_content_vertical"
+                    android:layout_marginStart="@dimen/commit_content_start"
+                    android:text="@string/commit_container_content"
                     android:textColor="@color/text"
+                    android:labelFor="@id/amend_enter"
                     app:layout_constraintStart_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/amend_separator" />
 
-                <!-- TODO: add autofill?! -->
                 <EditText
                     android:id="@+id/amend_enter"
-                    android:layout_width="@dimen/amend_insert_width"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/amend_insert_start"
-                    android:layout_marginTop="@dimen/amend_insert_top"
-                    android:layout_marginBottom="@dimen/amend_insert_bottom"
-                    android:padding="@dimen/amend_insert_padding"
+                    android:layout_width="@dimen/commit_insert_size"
+                    android:layout_height="@dimen/commit_insert_size"
+                    android:layout_marginStart="@dimen/commit_insert_start"
+                    android:layout_marginTop="@dimen/commit_insert_top"
+                    android:layout_marginBottom="@dimen/commit_insert_bottom"
+                    android:padding="@dimen/commit_insert_padding"
                     android:inputType="number"
                     android:textColor="@color/text"
                     android:background="@color/text_edit"
                     android:text="@={viewmodel.newCount}"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/amend_content" />
+                    app:layout_constraintTop_toBottomOf="@id/amend_content"
+                    tools:ignore="Autofill" />
 
                 <View
                     android:id="@+id/amend_enter_deco"
-                    android:layout_width="@dimen/amend_insert_width"
+                    android:layout_width="@dimen/commit_insert_size"
                     android:layout_height="1dp"
                     android:background="@color/text"
-                    android:layout_marginTop="@dimen/amend_insert_underline_space"
+                    android:layout_marginTop="@dimen/commit_insert_underline_space"
                     app:layout_constraintTop_toBottomOf="@id/amend_enter"
                     app:layout_constraintStart_toStartOf="@id/amend_enter" />
 
@@ -96,8 +99,8 @@
                     android:id="@+id/amend_confirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/amend_insert_top"
-                    android:text="@string/amend_container_button"
+                    android:layout_marginTop="@dimen/commit_insert_top"
+                    android:text="@string/commit_container_button"
                     android:textColor="@color/text"
                     android:background="@color/blue"
                     android:onClick="@{() -> viewmodel.commitNewCount()}"
