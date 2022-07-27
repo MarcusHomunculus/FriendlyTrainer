@@ -1,19 +1,17 @@
 package com.github.friendlytrainer.android.viewmodels
 
-import android.app.Application
 import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.androidplot.xy.SimpleXYSeries
+import androidx.lifecycle.*
 import com.androidplot.xy.XYSeries
 import com.github.friendlytrainer.android.R
-import com.github.friendlytrainer.storage.DatabaseDriverFactory
-import com.github.friendlytrainer.TrainerData
+import com.github.friendlytrainer.android.storage.Storage
+import kotlinx.coroutines.*
 
-class MainViewModel(app: Application) : AndroidViewModel(app) {
+class MainViewModel(private val _data: Storage, externalScope: CoroutineScope? = null): ViewModel() {
+
+    private val _scope = externalScope ?: viewModelScope
 
     enum class InfoView { AMEND, PROGRESS }
     class CardState(isExpanded: Boolean) {
@@ -24,14 +22,15 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         val amend = CardState(active == InfoView.AMEND)
         val progress = CardState(active == InfoView.PROGRESS)
     }
+    data class DateStruct(val day: Int, val month: Int)
 
-    private val _data: TrainerData = TrainerData(DatabaseDriverFactory(getApplication()))
     private var _state: MutableLiveData<ViewState> = MutableLiveData(ViewState(InfoView.AMEND))
     private var _amendButtonState: MutableLiveData<Int> = MutableLiveData(View.INVISIBLE)
-    private var _reinforcementText: MutableLiveData<String> = MutableLiveData()
+    private var _countValue: MutableLiveData<Int> = MutableLiveData()
+
     val state: LiveData<ViewState> get() = _state
     val amendButtonState: LiveData<Int> get() = _amendButtonState
-    val reinforcementText: LiveData<String> get() = _reinforcementText
+    val reinforcementText: LiveData<String> get() = Transformations.map(_countValue) { nextReinforcementText(it) }
     val newCount: ObservableField<String> = ObservableField()
 
     init {
@@ -40,6 +39,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
                 _amendButtonState.value = deriveAmendButtonState()
             }
         })
+        _countValue.observeForever { pushExercise(it) }
     }
 
     fun focus(which: InfoView) {
@@ -48,23 +48,14 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun commitNewCount() {
-        val new = newCount.get()!!.toInt()
-        _reinforcementText.value = nextReinforcementText(new)
-        newCount.set("")    // reset
-        _data.add(new)
+        _countValue.value = newCount.get()!!.toInt()
     }
 
-    fun nextReinforcementText(new: Int): String {
-        return "$new is awesome!"
+    fun requestHistory(): Deferred<Pair<XYSeries, List<DateStruct>>> = _scope.async {
+        _data.history()
     }
 
-    fun getHistory(): Pair<XYSeries, List<String>> {
-        val history = _data.getHistory()
-        val counts = history.map { it.howMany }
-        val labels = history.map { "${it.at.day}-${it.at.month}" }
-        val vals = SimpleXYSeries(counts, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Sit-ups")
-        return Pair(vals, labels)
-    }
+    private fun nextReinforcementText(new: Int): String = "$new is awesome!"
 
     private fun deriveAmendButtonState(): Int {
         return if (_state.value!!.amend.visibility == View.GONE)
@@ -74,4 +65,6 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         else
             View.VISIBLE
     }
+
+    private fun pushExercise(count: Int) = _scope.launch { _data.addExercise(count) }
 }
