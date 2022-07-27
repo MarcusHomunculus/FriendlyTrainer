@@ -48,9 +48,11 @@ kotlin {
         }
         val androidTest by getting {
             dependencies {
-                // implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
+                implementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
+                implementation("org.junit.vintage:junit-vintage-engine:$junitVersion")
                 implementation("androidx.test:core:1.4.0")
                 implementation("org.robolectric:robolectric:4.8.1")
                 implementation("org.mockito:mockito-core:4.6.1")
